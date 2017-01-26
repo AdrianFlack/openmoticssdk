@@ -1,26 +1,18 @@
-import pathlib
-import re
+# Always prefer setuptools over distutils
+from setuptools import setup, find_packages
+# To use a consistent encoding
+from codecs import open
+from os import path
 
-from setuptools import setup
+here = path.abspath(path.dirname(__file__))
 
-here = pathlib.Path(__file__).parent
-fname = here / 'openmoticssdk' / '__init__.py'
+# Get the long description from the README file
+with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
+    long_description = f.read()
 
-with fname.open() as fp:
-    try:
-        version = re.findall(r"^__version__ = '([^']+)'$", fp.read(), re.M)[0]
-    except IndexError:
-        raise RuntimeError('Unable to determine version.')
-
-
-def read(name):
-    fname = here / name
-    with fname.open() as f:
-        return f.read()
-
-
-setup(name='openmoticssdk',
-      version=version,
+setup(
+      name='openmoticssdk',
+      version='0.0.1',
       description=("Python SDK for OpenMotics Gateway"),
       long_description='\n\n'.join([read('README.rst'),
                                     read('CHANGES.rst')]),
@@ -36,7 +28,7 @@ setup(name='openmoticssdk',
       author_email='andrew.svetlov@gmail.com',
       url='https://github.com/woutercoppens/openmoticssdk/',
       license='MIT',
-      packages=['openmoticssdk'],
-      setup_requires=['pytest-runner'],
-      tests_require=['pytest'],
+      packages=find_packages(exclude=['contrib', 'docs', 'tests']),
+      #setup_requires=['pytest-runner'],
+      #tests_require=['pytest'],
       include_package_data=False)
