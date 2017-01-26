@@ -6,4 +6,4 @@ http://www.openmotics.com/
 :license: MIT, see LICENSE for more details.
 """
 
-from sdk import OpenMoticsApi, OpenMoticsCloudApi, traceback
+from .sdk import OpenMoticsApi, OpenMoticsCloudApi, traceback
