@@ -6,16 +6,11 @@ from os import path
 
 here = path.abspath(path.dirname(__file__))
 
-# Get the long description from the README file
-with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
-    long_description = f.read()
-
 setup(
       name='openmoticssdk',
       version='0.0.1',
       description=("Python SDK for OpenMotics Gateway"),
-      long_description='\n\n'.join([read('README.rst'),
-                                    read('CHANGES.rst')]),
+      long_description=("Python SDK for OpenMotics Gateway"),
       classifiers=[
           'License :: OSI Approved :: Apache Software License',
           'Intended Audience :: Developers',
