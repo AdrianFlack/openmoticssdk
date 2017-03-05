@@ -7,4 +7,4 @@ http://www.openmotics.com/
 """
 __version__ = '0.0.1'
 
-from .sdk import OpenMoticsApi, OpenMoticsCloudApi, traceback
+from .sdk import OpenMoticsApi, OpenMoticsCloudApi, traceback, AuthenticationException, MaintenanceModeException, ApiException
