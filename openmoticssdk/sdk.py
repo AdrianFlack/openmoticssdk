@@ -1,11 +1,15 @@
 ## Depends on 3.x and requests (http://www.python-requests.org/)
 
-import json
 import requests
 import random
 import traceback
 import time
 
+try:
+    import simplejson as json
+except ImportError:
+    import json
+    
 class AuthenticationException(Exception):
     """ This Exception is raised when the user credentials are not valid. """
 
@@ -30,7 +34,7 @@ class ApiException(Exception):
     """ This Exception is raised when a non successful message was returned. """
 
     def __init__(self, msg):
-        self.msg = "Non successful api call: %s" % msg
+        self.msg = f"Non successful api call: {msg}"
 
     def __str__(self):
         return self.msg
@@ -52,7 +56,7 @@ class OpenMoticsApi:
 
     def get_url(self, action):
         """ Get the url for an action. """
-        return "https://%s:%s/%s" % (self.hostname, self.port, action)
+        return f"https://{self.hostname}:{self.port}/{action}"
 
     def get_post_data(self, post_data):
         """ Get the full post data dict, this method adds the token to the dict. """
@@ -66,7 +70,7 @@ class OpenMoticsApi:
         url = self.get_url(action)
         post_data = self.get_post_data(post_data)
         
-        print("Fetching url: %s" % url)
+        print(f"Fetching url: {url}")
         
         r = requests.post(url, params=get_params, data=post_data, verify=self.verify_https)
         if r.status_code == 401:
@@ -84,7 +88,7 @@ class OpenMoticsApi:
             else:
                 return r.text
         else:
-            raise Exception("Unknown status code: %s. Text: %s" % (r.status_code, r.text))
+            raise Exception(f"Unknown status code: {r.status_code}. Text: {r.text}" )
 
     def login(self):
         """ Login to the gateway: sets the token in the connector. """
